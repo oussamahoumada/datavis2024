@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercice 01 - wikidata et rawgraphs</title>
+</head>
+
+<body>
+    <h1>Exercice no. 01</h1>
+    <h2>Ligne de temps faite avec Wikidata</h2>
+    <p>Cette <em>timeline</em> montre des athletes</p>
+    <p>La requête est :</p>
+    <p>
+        <code>
+                <pre>
+                    #defaultView:Timeline
+                    SELECT ?écrivain_ou_écrivaine ?image ?identifiant_World_Database_on_Protected_Areas ?date_de_naissance WHERE {
+                    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+                    ?écrivain_ou_écrivaine wdt:P106 wd:Q2066131.
+                    OPTIONAL { ?écrivain_ou_écrivaine wdt:P18 ?image. }
+                    OPTIONAL { ?écrivain_ou_écrivaine wdt:P735 ?identifiant_World_Database_on_Protected_Areas. }
+                    OPTIONAL { ?écrivain_ou_écrivaine wdt:P569 ?date_de_naissance. }
+                    }
+                    LIMIT 150
+                </pre>
+        </code>
+    </p>
+    <iframe style="width: 80vw; height: 50vh; border: none;"
+        src="https://query.wikidata.org/embed.html#%23defaultView%3ATimeline%0ASELECT%20%3F%C3%A9crivain_ou_%C3%A9crivaine%20%3Fimage%20%3Fidentifiant_World_Database_on_Protected_Areas%20%3Fdate_de_naissance%20WHERE%20%7B%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22%5BAUTO_LANGUAGE%5D%2Cen%22.%20%7D%0A%20%20%3F%C3%A9crivain_ou_%C3%A9crivaine%20wdt%3AP106%20wd%3AQ2066131.%0A%20%20OPTIONAL%20%7B%20%3F%C3%A9crivain_ou_%C3%A9crivaine%20wdt%3AP18%20%3Fimage.%20%7D%0A%20%20OPTIONAL%20%7B%20%3F%C3%A9crivain_ou_%C3%A9crivaine%20wdt%3AP735%20%3Fidentifiant_World_Database_on_Protected_Areas.%20%7D%0A%20%20OPTIONAL%20%7B%20%3F%C3%A9crivain_ou_%C3%A9crivaine%20wdt%3AP569%20%3Fdate_de_naissance.%20%7D%0A%7D%0ALIMIT%20150"
+        referrerpolicy="origin" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
+
+    <h2>Circle packing fait avec RAWGraphs</h2>
+
+    <p>Cette représentation</p>
+
+    <div>
+        <a href="./viz.svg"><img src="./viz.svg" alt="Circle Packing" width="500"></a>
+    </div>
+
+    <p>Code de la requête en SPARQL Wikidata :</p>
+    <p>
+        <code>
+                        <pre>
+                            SELECT ?écrivain_ou_écrivaine ?identifiant_World_Database_on_Protected_Areas ?date_de_naissance ?image_d_une_application
+                            ?image_d_une_applicationLabel WHERE {
+                            SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+                            ?écrivain_ou_écrivaine wdt:P101 wd:Q36180.
+                            OPTIONAL { }
+                            OPTIONAL { ?écrivain_ou_écrivaine wdt:P1560 ?identifiant_World_Database_on_Protected_Areas. }
+                            OPTIONAL { ?écrivain_ou_écrivaine wdt:P569 ?date_de_naissance. }
+                            OPTIONAL { ?écrivain_ou_écrivaine wdt:P2396 ?image_d_une_application. }
+                            }
+                            LIMIT 150
+                        </pre>
+                    </code>
+    </p>
+
+    <p>Lien de la requête : <a
+            href="https://query.wikidata.org/#%23defaultView%3ATimeline%0ASELECT%20%3Fécrivain_ou_écrivaine%20%3Fimage%20%3Fidentifiant_World_Database_on_Protected_Areas%20%3Fdate_de_naissance%20WHERE%20%7B%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20"
+            %5BAUTO_LANGUAGE%5D%2Cen".%20%7D%0A%20%20%3Fécrivain_ou_écrivaine%20wdt%3AP106%20wd%3AQ2066131.%0A%20%20OPTIONAL%20%7B%20%3Fécrivain_ou_écrivaine%20wdt%3AP18%20%3Fimage.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fécrivain_ou_écrivaine%20wdt%3AP735%20%3Fidentifiant_World_Database_on_Protected_Areas.%20%7D%0A%20%20OPTIONAL%20%7B%20%3Fécrivain_ou_écrivaine%20wdt%3AP569%20%3Fdate_de_naissance.%20%7D%0A%7D%0ALIMIT%20150">https://w.wiki/8qzm</a>
+    </p>
+</body>
+
+</html>
