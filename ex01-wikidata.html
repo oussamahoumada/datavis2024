@@ -36,23 +36,25 @@
     <p>Cette représentation</p>
 
     <div>
-        <a href="./viz.svg"><img src="./viz.svg" alt="Circle Packing" width="500"></a>
+        <a href="./Viz.svg"><img src="./Viz.svg" alt="Circle Packing" width="500"></a>
     </div>
 
     <p>Code de la requête en SPARQL Wikidata :</p>
     <p>
         <code>
                         <pre>
-                            SELECT ?écrivain_ou_écrivaine ?identifiant_World_Database_on_Protected_Areas ?date_de_naissance ?image_d_une_application
-                            ?image_d_une_applicationLabel WHERE {
+                            SELECT DISTINCT ?city ?cityLabel ?population ?country ?countryLabel ?coordinates
+                            WHERE
+                            {
+                            ?city wdt:P31/wdt:P279* wd:Q515; # find instances of subclasses of city
+                            wdt:P1082 ?population; # with a population
+                            wdt:P17 ?country; # in a country
+                            wdt:P625 ?coordinates. # with coordinates
+                            ?country wdt:P30 wd:Q46. # the country is in Europe
                             SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
-                            ?écrivain_ou_écrivaine wdt:P101 wd:Q36180.
-                            OPTIONAL { }
-                            OPTIONAL { ?écrivain_ou_écrivaine wdt:P1560 ?identifiant_World_Database_on_Protected_Areas. }
-                            OPTIONAL { ?écrivain_ou_écrivaine wdt:P569 ?date_de_naissance. }
-                            OPTIONAL { ?écrivain_ou_écrivaine wdt:P2396 ?image_d_une_application. }
                             }
-                            LIMIT 150
+                            ORDER BY DESC(?population)
+                            LIMIT 100
                         </pre>
                     </code>
     </p>
